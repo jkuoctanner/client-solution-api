@@ -1,0 +1,157 @@
+FORMAT: 1A
+
+# Client Solution API
+
+The Client Solution API allows a calling application to create solutions, create and delete programs,
+and query and manage program membership in solutions.
+
+A solution is identified by its `solutionId`. The `solutionId` is a globally unique identifier across all applications.
+A program is identified by its `programId`. The `programId` is likewise a globally unique identifier across all applications.
+
+# Solution [/solutions]
+
+These methods create solutions, create programs, and query solutions.
+
+## Create Solution [POST]
+
+Create a new solution.
+
++ Request (application/json)
+
+    + Attributes
+
+        + clientId (string, required) - The ID of the client to which the solution belongs.
+        + name (string, required) - The name of the solution.
+        + description (string, optional) - A description of the solution.
+
+    + Body
+    
+            {
+                "clientId": "fb01e6ab-4806-458b-927f-8b2ba0e23049",
+                "name": "My First Solution",
+                "description": "The programs in this solution all share common attributes."
+            }
+
++ Response 201 (application/json)
+
+    + Attributes
+    
+        + status: `okay` (string, fixed)
+        + result (object)
+            - solution (Solution) - The newly created solution.
+
+## Create Program [POST /solutions/{solutionId}/programs]
+
+Create a new program.
+
++ Parameters
+
+    + solutionId: `8f1bfed2-c1f5-48e2-adf0-2ac724f1a45a` (string, required) - The solution ID.
+
++ Request (application/json)
+
+    + Attributes
+
+        + programType `Wellness` (enum, required) - The program type.
+        + name `My First Program` (string, required) - The name of the program.
+        + description `This is the first program in my solution.` (string, optional) - A long description of the program.
+
+    + Body
+    
+            {
+                "programType": "",
+                "name": "My First Program",
+                "description": "This is the first program in my solution."
+            }
+
++ Response 201 (application/json)
+
+    + Attributes
+    
+        + status: `okay` (string, fixed)
+        + result (object)
+            - program (Program) - The newly created program.
+
+## Get Solution [GET /solutions/{solutionId}]
+
+Retrieve a solution.
+
++ Parameters
+
+    + solutionId: `8f1bfed2-c1f5-48e2-adf0-2ac724f1a45a` (string, required) - The solution ID.
+
++ Response 200 (application/json)
+
+    + Attributes
+    
+        + status: `okay` (string, fixed)
+        + result (object)
+            - solution (Solution) - The solution.
+            - programs (array[Program]) - An array of programs.
+
+# Programs [/programs/{programId}]
+
+These methods retrieve and delete programs.
+
++ Parameters
+
+    + programId: `84e252e9-42e7-4c2a-bd49-924c6293ac88` (string, required) - The program ID.
+
+## Get Program [GET]
+
+Retrieve a program.
+
++ Response 200 (application/json)
+
+    + Attributes
+    
+        + status: `okay` (string, fixed)
+        + result (object)
+            - program (Program) - The program.
+
+## Delete Program [DELETE]
+
+Delete a program.
+
++ Response 200 (application/json)
+
+    + Attributes
+    
+        + status: `okay` (string, fixed)
+        + result (object)
+            - program (Program) - The program.
+
+# Clients [/clients/{clientId}]
+
+These methods retrieve solutions.
+
++ Parameters
+
+    + clientId: `fb01e6ab-4806-458b-927f-8b2ba0e23049` (string, required) - The client ID.
+
+## Get Program [GET]
+
+Retrieve all solutions belonging to a client.
+
++ Response 200 (application/json)
+
+    + Attributes
+    
+        + status: `okay` (string, fixed)
+        + result (object)
+            - solutions (array[Solution]) - An array of solutions.
+
+## Data Structures
+
+# Solution (object)
+- solutionId: `8f1bfed2-c1f5-48e2-adf0-2ac724f1a45a` (string) - The solution ID.
+- clientId: `fb01e6ab-4806-458b-927f-8b2ba0e23049` (string) - The client ID of the client to which the solution belongs.
+- name: `My First Solution` (string) - The name of the solution.
+- description: `The programs in this solution all share common attributes.` (string) - A long description of the solution.
+
+# Program (object)
+- programId: `84e252e9-42e7-4c2a-bd49-924c6293ac88` (string) - The program ID.
+- programType: `Wellness` (enum) - The program type.
+- solutionId: `8f1bfed2-c1f5-48e2-adf0-2ac724f1a45a` (string) - The ID of the solution to which the program belongs.
+- name: `My First Program` (string) - The name of the program.
+- description: `This is the first program in my solution.` (string) - A long description of the program.
