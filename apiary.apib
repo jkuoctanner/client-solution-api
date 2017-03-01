@@ -1,8 +1,8 @@
 FORMAT: 1A
 
-# Group Solution Program API
+# Client Solution API
 
-The Solution Program API allows a calling application to create solutions, create and delete programs,
+The Client Solution API allows a calling application to create solutions, create and delete programs,
 and query and manage program membership in solutions.
 
 A solution is identified by its `solutionId`. The `solutionId` is a globally unique identifier across all applications.
@@ -197,7 +197,7 @@ These methods retrieve solutions.
 
     + clientId: `fb01e6ab-4806-458b-927f-8b2ba0e23049` (string, required) - The client ID.
 
-## Get Solutions [GET /clients/{clientId}/solutions]
+## Get Solutions [GET]
 
 Retrieve all solutions belonging to a client.
 
