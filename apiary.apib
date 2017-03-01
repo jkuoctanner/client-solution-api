@@ -8,7 +8,7 @@ and query and manage program membership in solutions.
 A solution is identified by its `solutionId`. The `solutionId` is a globally unique identifier across all applications.
 A program is identified by its `programId`. The `programId` is likewise a globally unique identifier across all applications.
 
-# Solution [/solutions]
+# Solutions [/solutions]
 
 These methods create solutions, create programs, and query solutions.
 
@@ -59,7 +59,7 @@ Create a new program.
     + Body
     
             {
-                "programType": "",
+                "programType": "Wellness",
                 "name": "My First Program",
                 "description": "This is the first program in my solution."
             }
@@ -71,6 +71,23 @@ Create a new program.
         + status: `okay` (string, fixed)
         + result (object)
             - program (Program) - The newly created program.
+
++ Response 404 (application/json)
+
+    + Attributes
+    
+        + status: `error` (string, fixed)
+        + result (object)
+            - errorMessage (string)
+
+    + Body
+    
+            {
+                "status": "error",
+                "result": {
+                    "errorMessage": "Solution `8f1bfed2-c1f5-48e2-adf0-2ac724f1a45a` was not found."
+                }
+            }
 
 ## Get Solution [GET /solutions/{solutionId}]
 
@@ -88,6 +105,23 @@ Retrieve a solution.
         + result (object)
             - solution (Solution) - The solution.
             - programs (array[Program]) - An array of programs.
+
++ Response 404 (application/json)
+
+    + Attributes
+    
+        + status: `error` (string, fixed)
+        + result (object)
+            - errorMessage (string)
+
+    + Body
+    
+            {
+                "status": "error",
+                "result": {
+                    "errorMessage": "Solution `8f1bfed2-c1f5-48e2-adf0-2ac724f1a45a` was not found."
+                }
+            }
 
 # Programs [/programs/{programId}]
 
@@ -109,6 +143,23 @@ Retrieve a program.
         + result (object)
             - program (Program) - The program.
 
++ Response 404 (application/json)
+
+    + Attributes
+    
+        + status: `error` (string, fixed)
+        + result (object)
+            - errorMessage (string)
+
+    + Body
+    
+            {
+                "status": "error",
+                "result": {
+                    "errorMessage": "Program `84e252e9-42e7-4c2a-bd49-924c6293ac88` was not found."
+                }
+            }
+
 ## Delete Program [DELETE]
 
 Delete a program.
@@ -121,6 +172,23 @@ Delete a program.
         + result (object)
             - program (Program) - The program.
 
++ Response 404 (application/json)
+
+    + Attributes
+    
+        + status: `error` (string, fixed)
+        + result (object)
+            - errorMessage (string)
+
+    + Body
+    
+            {
+                "status": "error",
+                "result": {
+                    "errorMessage": "Program `84e252e9-42e7-4c2a-bd49-924c6293ac88` was not found."
+                }
+            }
+
 # Clients [/clients/{clientId}]
 
 These methods retrieve solutions.
@@ -129,7 +197,7 @@ These methods retrieve solutions.
 
     + clientId: `fb01e6ab-4806-458b-927f-8b2ba0e23049` (string, required) - The client ID.
 
-## Get Program [GET]
+## Get Solutions [GET]
 
 Retrieve all solutions belonging to a client.
 
@@ -140,6 +208,23 @@ Retrieve all solutions belonging to a client.
         + status: `okay` (string, fixed)
         + result (object)
             - solutions (array[Solution]) - An array of solutions.
+
++ Response 404 (application/json)
+
+    + Attributes
+    
+        + status: `error` (string, fixed)
+        + result (object)
+            - errorMessage (string)
+
+    + Body
+    
+            {
+                "status": "error",
+                "result": {
+                    "errorMessage": "Client `fb01e6ab-4806-458b-927f-8b2ba0e23049` was not found."
+                }
+            }
 
 ## Data Structures
 
